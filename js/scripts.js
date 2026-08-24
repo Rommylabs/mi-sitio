@@ -137,7 +137,7 @@ function cargarContenido(seccion) {
             </div>
             <!-- Registros Akáshicos -->
             <div class="tirada">
-            <a href="alma/akashicos.html"><img src="img/akashian.jpg" alt="Lectura de Registros Akáshicos"><h2>✨ Registros Akáshicos</h2></a>
+            <a href="alma/akashicos.html"><img src="img/akashic1.jpg" alt="Lectura de Registros Akáshicos"><h2>✨ Registros Akáshicos</h2></a>
             </div>
             </div>
             </div>
