@@ -147,10 +147,11 @@ function cargarContenido(seccion) {
             contenido = `
             <div class="catalogo-container">
             <h1>Elige el curso que necesitas</h1>
-            <div class="catalogo">        
+            <div class="catalogo">
             <!-- Protección contra Energías Nocturnas -->
             <div class="tirada">
-            <h2>🌙 Protección contra Energías Nocturnas</h2><a href="alma/taller.html"><img src="img/dist.jpg" alt="Protección"></a>
+            <h2>🌙 Protección contra Energías Nocturnas</h2>
+            <a href="alma/taller.html"><img src="img/dist.jpg" alt="Protección"></a>
             </div>
             <!-- Creación de Altares -->
             <div class="tirada">
@@ -161,11 +162,17 @@ function cargarContenido(seccion) {
             <div class="tirada">
             <h2>🧸 Creación de Muñecas Mágicas</h2>
             <a href="alma/spirit_doll.html"><img src="img/tar.jpg" alt="Muñeca Mágica"></a>
-            </div>          
+            </div>
             <!-- Corte de Lazos Energéticos y Emocionales -->
             <div class="tirada">
             <h2>🌿 Corte de Lazos Energéticos</h2>
             <a href="alma/corte_lazos.html"><img src="img/aqua.jpg" alt="Corte"></a>
+            </div>
+            <!-- Registros Akáshicos Nivel 1 -->
+            <div class="tirada">
+            <h2>🔮 Registros Akáshicos – Nivel 1</h2>
+            <a href="https://tarotvia.gumroad.com/l/Akashic1" target="_blank" rel="noopener noreferrer"><img src="img/akashic1.jpg" alt="Curso de Registros Akáshicos Nivel 1"></a>
+            <p><strong>Curso disponible únicamente en inglés.</strong></p>
             </div>
             </div>
             </div>`;
