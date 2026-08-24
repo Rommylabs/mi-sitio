@@ -148,10 +148,12 @@ function cargarContenido(seccion) {
             <div class="catalogo-container">
             <h1>Elige el curso que necesitas</h1>
             <div class="catalogo">
-            <!-- Protección contra Energías Nocturnas -->
+            <!-- Protection Against Nocturnal Energies -->
             <div class="tirada">
-            <h2>🌙 Protección contra Energías Nocturnas</h2>
-            <a href="alma/taller.html"><img src="img/dist.jpg" alt="Protección"></a>
+            <h2>🌙 Protection Against Nocturnal Energies</h2>
+            <a href="https://tarotvia.gumroad.com/l/protection" target="_blank" rel="noopener noreferrer">
+            <img src="img/crisantemos.png" alt="Protection Against Nocturnal Energies course"></a>
+            <p class="course-language">Curso completo en inglés · 4 partes</p>
             </div>
             <!-- Creación de Altares -->
             <div class="tirada">
