@@ -277,8 +277,8 @@ function cargarContenido(seccion) {
             <h1 style="margin-bottom: 20px; font-family: 'Afacad Flux', serif;">Contacto</h1>
             <p style="font-family: 'Afacad Flux', serif; font-size: 28px; padding: 10px; margin-left: 20px; margin-right: 20px; text-align: justify;">
     <strong>AVISO IMPORTANTE</strong><br><br>
-Por motivos fuera de mi alcance, no estaré realizando atenciones desde el 06/08/2026 hasta el 03/09/2026.<br><br>
-A partir del 04/09/2026, las atenciones se retomarán con normalidad.<br><br>
+Por motivos fuera de mi alcance, no estaré realizando atenciones desde el 06/08/2026 hasta el 19/09/2026.<br><br>
+A partir del 20/09/2026, las atenciones se retomarán con normalidad.<br><br>
 ¡Muchas gracias por su comprensión! 💜Si lo que busca es una lectura personalizada desde la comodidad de donde se encuentre, puede solicitar una por $20.000 CLP. 
     La sesión dura 30 minutos, y también tiene la opción de elegir una hora por $40.000 CLP. 
     El proceso es sencillo: contácteme vía WhatsApp por escrito para coordinar el horario, realizar el pago y una vez confirmado, le llamo de manera telefónica, garantizando total privacidad y comodidad. El horario de atención es libre, si me pilla disponible, en ese horario queda fijado. Así que escríbame con confianza.
