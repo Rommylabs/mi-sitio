@@ -320,6 +320,162 @@ function revealThreeCards(cards, userName, question) {
     // or blocks. The navigation buttons are purely optional shortcuts.
 }
 
+// Build a shareable image of the current reading without requiring a manual screenshot.
+async function createReadingShareImage() {
+    const canvas = document.createElement('canvas');
+    canvas.width = 1080;
+    canvas.height = 1350;
+    const ctx = canvas.getContext('2d');
+
+    // Background
+    ctx.fillStyle = '#140E24';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const gradient = ctx.createLinearGradient(0, 0, 1080, 1350);
+    gradient.addColorStop(0, 'rgba(45,27,78,0.95)');
+    gradient.addColorStop(1, 'rgba(20,14,36,0.98)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const gold = '#D4AF77';
+    const cream = '#F5F0E6';
+    const muted = '#CFC3A8';
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = gold;
+    ctx.font = '700 58px Georgia, serif';
+    ctx.fillText('Tarot de Rommy', 540, 90);
+    ctx.fillStyle = cream;
+    ctx.font = '32px Georgia, serif';
+    ctx.fillText('Tu Lectura del Destino', 540, 140);
+
+    const name = document.getElementById('name')?.value?.trim() || 'Consultante';
+    const question = document.getElementById('question')?.value?.trim() || '';
+    ctx.fillStyle = muted;
+    ctx.font = '26px Arial, sans-serif';
+    ctx.fillText(name, 540, 185);
+
+    const positions = ['Pasado', 'Presente', 'Futuro'];
+    const imageEls = [1, 2, 3].map(i => document.getElementById(`card-img-${i}`));
+    await Promise.all(imageEls.map(img => {
+        if (!img || img.complete) return Promise.resolve();
+        return new Promise(resolve => {
+            img.addEventListener('load', resolve, { once: true });
+            img.addEventListener('error', resolve, { once: true });
+        });
+    }));
+
+    const cardW = 280, cardH = 430, gap = 35;
+    const startX = (1080 - (cardW * 3 + gap * 2)) / 2;
+    const y = 260;
+
+    imageEls.forEach((img, index) => {
+        const x = startX + index * (cardW + gap);
+        ctx.fillStyle = gold;
+        ctx.font = '700 24px Arial, sans-serif';
+        ctx.fillText(positions[index], x + cardW / 2, y - 22);
+
+        ctx.fillStyle = '#1F1633';
+        ctx.fillRect(x - 5, y - 5, cardW + 10, cardH + 10);
+        ctx.strokeStyle = gold;
+        ctx.lineWidth = 3;
+        ctx.strokeRect(x - 5, y - 5, cardW + 10, cardH + 10);
+
+        if (img && img.complete && img.naturalWidth) {
+            const scale = Math.min(cardW / img.naturalWidth, cardH / img.naturalHeight);
+            const w = img.naturalWidth * scale;
+            const h = img.naturalHeight * scale;
+            ctx.drawImage(img, x + (cardW - w) / 2, y + (cardH - h) / 2, w, h);
+        }
+
+        const cardName = document.getElementById(`name-${index + 1}`)?.textContent?.trim() || '';
+        ctx.fillStyle = cream;
+        ctx.font = '700 23px Arial, sans-serif';
+        ctx.fillText(cardName, x + cardW / 2, y + cardH + 48);
+    });
+
+    // Question, wrapped so long questions remain inside the image.
+    ctx.fillStyle = gold;
+    ctx.font = '700 24px Arial, sans-serif';
+    ctx.fillText('Tu pregunta', 540, 815);
+    ctx.fillStyle = muted;
+    ctx.font = '25px Arial, sans-serif';
+    const words = question.split(/\s+/);
+    const lines = [];
+    let line = '';
+    for (const word of words) {
+        const test = line ? line + ' ' + word : word;
+        if (ctx.measureText(test).width > 900 && line) {
+            lines.push(line);
+            line = word;
+        } else line = test;
+    }
+    if (line) lines.push(line);
+    lines.slice(0, 4).forEach((l, i) => ctx.fillText(l, 540, 855 + i * 34));
+
+    ctx.fillStyle = cream;
+    ctx.font = '27px Georgia, serif';
+    ctx.fillText('Pasado · Presente · Futuro', 540, 1050);
+    ctx.fillStyle = muted;
+    ctx.font = '22px Arial, sans-serif';
+    ctx.fillText('Lectura generada en Tarot de Rommy', 540, 1100);
+    ctx.fillStyle = gold;
+    ctx.font = '20px Arial, sans-serif';
+    ctx.fillText('tarotvia.cl', 540, 1140);
+
+    return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('No se pudo generar la imagen')), 'image/png', 0.95);
+    });
+}
+
+async function shareReadingImage() {
+    const button = document.getElementById('share-reading-btn');
+    const original = button ? button.innerHTML : '';
+    try {
+        if (button) {
+            button.disabled = true;
+            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i><span>Preparando imagen...</span>';
+        }
+
+        const blob = await createReadingShareImage();
+        const file = new File([blob], 'tarot-de-rommy-lectura.png', { type: 'image/png' });
+        const shareData = {
+            title: 'Mi lectura - Tarot de Rommy',
+            text: 'Te comparto mi lectura de Tarot de Rommy.',
+            files: [file]
+        };
+
+        // On supported phones this opens the native share sheet, where WhatsApp can be chosen.
+        if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share(shareData);
+            return;
+        }
+
+        // Desktop / unsupported browser fallback: download the image, then open WhatsApp.
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = file.name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+        const message = encodeURIComponent('Hola Rommy, te envío la imagen de mi lectura del Tarot de Rommy. Me gustaría una consulta personalizada y profunda.');
+        window.open(`https://wa.me/56949378439?text=${message}`, '_blank', 'noopener');
+    } catch (error) {
+        // AbortError simply means the user closed the native share sheet.
+        if (error?.name !== 'AbortError') {
+            console.error('Error al compartir la lectura:', error);
+            alert('No pude compartir la imagen automáticamente. Intenta nuevamente o usa “Copiar lectura”.');
+        }
+    } finally {
+        if (button) {
+            button.disabled = false;
+            button.innerHTML = original;
+        }
+    }
+}
+
 // Scroll back to the Labubu cards (used from the contact box)
 function scrollToCards() {
     const cardsGrid = document.querySelector('#reading-section .grid');
