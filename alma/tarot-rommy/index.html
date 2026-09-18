@@ -573,22 +573,24 @@
                         <h3 class="text-[#D4AF77] font-semibold tracking-wide">¿Quieres una consulta más profunda?</h3>
                     </div>
                     <p class="text-sm text-[#CFC3A8] max-w-md mx-auto mb-4 leading-relaxed">
-                        Comparte la imagen de tu tirada y te ayudo personalmente con una interpretación detallada y guiada.
+                        Comparte la imagen de tu tirada por WhatsApp, correo u otra app y, si quieres una consulta más profunda, escríbeme directamente.
                     </p>
                     
                     <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-                        <!-- WhatsApp -->
+                        <!-- Share the generated PNG through the phone's native share sheet.
+                             The user can choose WhatsApp, Gmail, Mail, Drive, etc. -->
                         <button type="button" id="share-reading-btn" onclick="shareReadingImage()"
+                           class="inline-flex items-center justify-center gap-x-2 px-6 py-3 bg-[#D4AF77] hover:bg-[#E1C28E] transition-all text-[#1A1329] font-semibold text-sm rounded-2xl shadow-md">
+                            <i class="fa-solid fa-share-nodes text-lg"></i>
+                            <span>Compartir imagen</span>
+                        </button>
+
+                        <!-- Direct contact remains separate: wa.me can prefill text, but cannot attach a generated file. -->
+                        <a href="https://wa.me/56949378439?text=Hola%20Rommy%2C%20quiero%20consultarte%20sobre%20mi%20lectura%20del%20Tarot%20de%20Rommy."
+                           target="_blank" rel="noopener"
                            class="inline-flex items-center justify-center gap-x-2 px-6 py-3 bg-[#25D366] hover:bg-[#1EBE5A] transition-all text-white font-semibold text-sm rounded-2xl shadow-md">
                             <i class="fa-brands fa-whatsapp text-lg"></i>
-                            <span>Compartir imagen por WhatsApp</span>
-                        </button>
-                        
-                        <!-- Email -->
-                        <a href="mailto:rsbejar@gmail.com?subject=Consulta%20personalizada%20-%20Lectura%20Tarot%20de%20Rommy&body=Hola%20Rommy%2C%0A%0ATe%20env%C3%ADo%20un%20pantallazo%20(captura%20de%20pantalla)%20de%20mi%20lectura%20del%20Tarot%20de%20Rommy.%0A%0AMe%20gustar%C3%ADa%20que%20me%20ayudes%20con%20una%20interpretaci%C3%B3n%20m%C3%A1s%20profunda%20y%20personalizada.%0A%0AGracias!" 
-                           class="inline-flex items-center justify-center gap-x-2 px-6 py-3 border border-[#D4AF77]/50 hover:bg-[#D4AF77]/10 hover:border-[#D4AF77] transition-all text-sm font-semibold rounded-2xl">
-                            <i class="fa-solid fa-envelope"></i>
-                            <span>Enviar por correo</span>
+                            <span>Escribirme por WhatsApp</span>
                         </a>
                     </div>
                     
